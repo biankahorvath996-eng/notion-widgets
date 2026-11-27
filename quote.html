@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #ffffff;
+}
+body {
+  font-family: Georgia, serif;
+  color: #806858;
+  text-align: center;
+}
+.inspiration {
+  width: 96%;
+  margin: 8px auto;
+  padding: 18px 12px;
+  border-top: 1px solid #d7cabc;
+  border-bottom: 1px solid #d7cabc;
+}
+.label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  margin-bottom: 14px;
+}
+#quote {
+  font-size: clamp(16px, 2.2vw, 25px);
+  font-style: italic;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<div class="inspiration">
+  <div class="label">NAPI INSPIRÁCIÓ</div>
+  <div id="quote"></div>
+</div>
+<script>
+const quotes = [
+  "Ne csak a céljaid felé haladj, hanem önmagadhoz is kerülj közelebb.",
+  "Az élet, amelyre vágysz, a mindennapi döntéseidből épül fel.",
+  "Nem kell sietned ahhoz, hogy haladj.",
+  "Teremts olyan mindennapokat, amelyekből nem vágysz elmenekülni.",
+  "A fejlődés néha csendes és láthatatlan.",
+  "A szépség ott kezdődik, ahol megtanulsz jelen lenni.",
+  "Adj időt annak, ami igazán fontos számodra.",
+  "Az egyensúly nem mozdulatlanság, hanem folyamatos finomhangolás.",
+  "A kis lépések is egy új élet felé vezethetnek.",
+  "Ne csak eredményeket gyűjts, hanem megélt pillanatokat is.",
+  "A pihenés is része az útnak.",
+  "A saját ritmusodban is messzire juthatsz.",
+  "Az egyszerű pillanatokban is ott rejtőzik a teljesség.",
+  "A figyelmeddel formálod a mindennapjaidat.",
+  "Legyen hely az életedben annak is, ami örömet okoz.",
+  "A következetesség többet ér, mint a tökéletesség.",
+  "Nem minden érték mérhető teljesítményben.",
+  "Minden nap lehetőség arra, hogy tudatosabban élj.",
+  "A változás egy apró, tudatos döntéssel kezdődik.",
+  "Az otthonodban és önmagadban is teremthetsz békét.",
+  "Ne felejtsd el élvezni azt, amiért egykor dolgoztál.",
+  "A jelen pillanat nem csupán átmenet a jövő felé.",
+  "A céljaid szolgálják az életedet, ne az életed a céljaidat.",
+  "Az időd az egyik legértékesebb ajándékod.",
+  "A hála láthatóvá teszi azt, ami már most is szép.",
+  "Merj olyan életet választani, amely valóban hozzád illik.",
+  "Nem kell mindent ma megvalósítanod.",
+  "A valódi változás a hétköznapokban születik.",
+  "A nyugalomnak is legyen helye a terveid között.",
+  "Építs olyan életet, amelyben önmagad lehetsz.",
+  "A mai nap is az életed része, nem csupán felkészülés a holnapra."
+];
+
+function updateQuote() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Budapest",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric"
+  }).formatToParts(new Date());
+
+  const get = type =>
+    Number(parts.find(p => p.type === type).value);
+
+  const day = Math.floor(
+    Date.UTC(get("year"), get("month") - 1, get("day"))
+    / 86400000
+  );
+
+  document.getElementById("quote").textContent =
+    "„" + quotes[day % quotes.length] + "”";
+}
+
+updateQuote();
+setInterval(updateQuote, 60000);
+</script>
+</body>
+</html>
