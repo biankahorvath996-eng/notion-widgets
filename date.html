@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  color: #806858;
+  text-align: center;
+}
+.date {
+  width: 100%;
+  padding: 8px;
+}
+#month {
+  font-size: clamp(10px, 8vw, 22px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+#day {
+  font-size: min(65vw, 120px, 48vh);
+  line-height: 1.1;
+}
+#weekday {
+  font-size: 20px;
+  font-style: italic;
+}
+.line {
+  width: 45%;
+  height: 1px;
+  background: #d7cabc;
+  margin: 12px auto;
+}
+#year {
+  font-size: 15px;
+}
+</style>
+</head>
+<body>
+<div class="date">
+  <div id="month"></div>
+  <div id="day"></div>
+  <div id="weekday"></div>
+  <div class="line"></div>
+  <div id="year"></div>
+</div>
+<script>
+function updateDate() {
+  const now = new Date();
+  const format = options =>
+    new Intl.DateTimeFormat("hu-HU", {
+      ...options,
+      timeZone: "Europe/Budapest"
+    }).format(now);
+
+  document.getElementById("month").textContent =
+    format({ month: "long" });
+
+  document.getElementById("day").textContent =
+    format({ day: "numeric" }).replace(".", "");
+
+  const weekday = format({ weekday: "long" });
+  document.getElementById("weekday").textContent =
+    weekday.charAt(0).toUpperCase() + weekday.slice(1);
+
+  document.getElementById("year").textContent =
+    format({ year: "numeric" });
+}
+updateDate();
+setInterval(updateDate, 1000);
+</script>
+</body>
+</html>
